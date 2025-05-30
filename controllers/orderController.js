@@ -21,6 +21,15 @@ class OrderController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  async getUserOrders(req, res) {
+    try {
+      const orders = await orderService.getUserOrders(req.userId);
+      return res.status(200).json({ success: true, orders });
+    } catch (error) {
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  }
 }
 
 module.exports = new OrderController();
