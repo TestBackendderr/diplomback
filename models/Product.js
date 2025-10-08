@@ -11,6 +11,14 @@ const Product = sequelize.define("Product", {
   opis: { type: DataTypes.STRING },
   price: { type: DataTypes.FLOAT, allowNull: false },
   image_url: { type: DataTypes.STRING },
+  category: {
+    type: DataTypes.ENUM('weselne', 'dziecięce', 'świąteczne', 'domowe', 'piękne'),
+    allowNull: true,
+    defaultValue: 'domowe'
+  },
+}, {
+  tableName: 'cake',
+  timestamps: true
 });
 
 module.exports = Product;

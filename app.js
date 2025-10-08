@@ -7,6 +7,7 @@ const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 const app = express();
 const port = 5000;
@@ -22,6 +23,7 @@ app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", reviewRoutes);
 
 sequelize.sync({ force: false }).then(() => {
   console.log("Database synchronized successfully");

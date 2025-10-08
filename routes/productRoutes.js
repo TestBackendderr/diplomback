@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/productController");
+const authMiddleware = require("../middleware/authMiddleware");
+const { isAdmin } = require("../middleware/authMiddleware");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
@@ -18,6 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get("/cake", productController.getAllProducts);
-router.post("/cake", upload.single("image"), productController.addProduct);
+router.post("/cake", authMiddleware, isAdmin, upload.single("image"), productController.addProduct);
+router.delete("/cake/:id", authMiddleware, isAdmin, productController.deleteProduct);
 
 module.exports = router;
