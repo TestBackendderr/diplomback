@@ -2,18 +2,23 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const sequelize = require("./config/db");
+const loggerMiddleware = require("./middleware/loggerMiddleware");
+const { generalLimiter, authLimiter, apiLimiter } = require("./middleware/rateLimitMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 const port = 5000;
 
 app.use(express.json());
 app.use(cors());
+app.use(generalLimiter);
+app.use(loggerMiddleware);
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
 
 app.get("/", (req, res) => res.send("Server is working!"));
@@ -24,6 +29,7 @@ app.use("/api", userRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", reviewRoutes);
+app.use("/api/admin", adminRoutes);
 
 sequelize.sync({ force: false }).then(() => {
   console.log("Database synchronized successfully");

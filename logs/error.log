@@ -1,0 +1,108 @@
+[2025-10-25T14:51:31.662Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:51:31.693Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:51:31.896Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:51:31.972Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:51:31.993Z] [ERROR] ERROR: GET /recent-orders - 500 - {"success":false,"message":"Błąd podczas pobierania ostatnich zamówień"}
+[2025-10-25T14:51:32.014Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:51:32.060Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:51:32.065Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:51:32.078Z] [ERROR] ERROR: GET /recent-orders - 500 - {"success":false,"message":"Błąd podczas pobierania ostatnich zamówień"}
+[2025-10-25T14:51:32.093Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:51:37.276Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:51:41.178Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:51:41.186Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:51:41.189Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:51:41.190Z] [ERROR] ERROR: GET /recent-orders - 500 - {"success":false,"message":"Błąd podczas pobierania ostatnich zamówień"}
+[2025-10-25T14:51:41.198Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:51:41.208Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:51:41.212Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:51:41.215Z] [ERROR] ERROR: GET /recent-orders - 500 - {"success":false,"message":"Błąd podczas pobierania ostatnich zamówień"}
+[2025-10-25T14:51:42.276Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:51:47.266Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:51:52.281Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:51:57.273Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:02.270Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:07.267Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:12.276Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:17.274Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:22.271Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:27.263Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:32.278Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:37.277Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:38.959Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:52:38.965Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:52:38.970Z] [ERROR] ERROR: GET /recent-orders - 500 - {"success":false,"message":"Błąd podczas pobierania ostatnich zamówień"}
+[2025-10-25T14:52:38.981Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:52:39.012Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:52:39.021Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:52:39.028Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:52:39.035Z] [ERROR] ERROR: GET /recent-orders - 500 - {"success":false,"message":"Błąd podczas pobierania ostatnich zamówień"}
+[2025-10-25T14:52:42.284Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:47.277Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:52.277Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:52:57.289Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:53:00.430Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk"}
+[2025-10-25T14:53:00.433Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"Błąd podczas pobierania statystyk zamówień"}
+[2025-10-25T14:53:00.436Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"Błąd podczas pobierania najlepszych produktów"}
+[2025-10-25T14:54:52.294Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:54:57.274Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:02.280Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:07.268Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:12.277Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:13.222Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:13.249Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:17.297Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:18.206Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T14:55:19.015Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:55:19.019Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:55:19.043Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:55:19.077Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:55:19.094Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:55:19.100Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:57:09.312Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:57:09.316Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:57:09.329Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:57:43.463Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:57:43.470Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:57:43.487Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:57:43.503Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:57:43.530Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:57:43.536Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:12.957Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:12.963Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:12.973Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T14:58:12.979Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:58:13.019Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:13.026Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:13.032Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T14:58:13.035Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:58:52.402Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:52.413Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:52.418Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T14:58:52.429Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:58:52.436Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T14:58:52.455Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T14:58:52.465Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T14:58:52.475Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T15:00:09.395Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:00:09.417Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:01:04.476Z] [ERROR] ERROR: GET /all-users - 401 - {"success":false,"message":"No token provided"}
+[2025-10-25T15:01:17.640Z] [ERROR] ERROR: GET /all-users - 401 - {"success":false,"message":"No token provided"}
+[2025-10-25T15:01:40.868Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:02:43.264Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:02:43.340Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:02:43.514Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T15:02:43.540Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T15:02:45.476Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:02:45.480Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T15:02:45.484Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T15:02:45.492Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T15:02:45.530Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:02:45.543Z] [ERROR] ERROR: GET /orders-stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T15:02:45.546Z] [ERROR] ERROR: GET /top-products - 500 - {"success":false,"message":"столбец oi.product_id не существует"}
+[2025-10-25T15:02:45.549Z] [ERROR] ERROR: GET /stats - 500 - {"success":false,"message":"столбец \"total_amount\" не существует"}
+[2025-10-25T15:02:46.181Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:02:46.200Z] [ERROR] ERROR: GET /all-users - 500 - {"success":false,"message":"столбец \"id\" не существует"}
+[2025-10-25T15:04:31.614Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T15:04:31.633Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
+[2025-10-25T15:04:37.284Z] [ERROR] ERROR: GET /cart - 401 - {"success":false,"message":"Invalid token"}
