@@ -1,28 +1,45 @@
 const sequelize = require("../config/db");
+const { Op } = require("sequelize");
+const User = require("../models/User");
 
 class AdminController {
   // Общая статистика
   async getStats(req, res) {
     try {
+      const Order = require("../models/Order");
+      const OrderItem = require("../models/OrderItem");
+      const Product = require("../models/Product");
+
       const [
         totalUsers,
         totalProducts,
         totalOrders,
-        totalRevenue
+        orders,
+        orderItems
       ] = await Promise.all([
-        sequelize.query('SELECT COUNT(*) as count FROM "Users"'),
-        sequelize.query('SELECT COUNT(*) as count FROM cake'),
-        sequelize.query('SELECT COUNT(*) as count FROM "Orders"'),
-        sequelize.query('SELECT COALESCE(SUM(total_amount), 0) as total FROM "Orders" WHERE status = \'completed\'')
+        User.count(),
+        Product.count(),
+        Order.count(),
+        Order.findAll({ attributes: ['totalPrice', 'status'] }),
+        OrderItem.findAll({ attributes: ['quantity'] })
       ]);
+
+      // Подсчет выручки от завершенных заказов
+      const totalRevenue = orders
+        .filter(o => o.status === 'completed')
+        .reduce((sum, order) => sum + (parseFloat(order.totalPrice) || 0), 0);
+
+      // Подсчет общего количества купленных тортов
+      const totalCakesSold = orderItems.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
 
       res.json({
         success: true,
         stats: {
-          totalUsers: totalUsers[0][0].count,
-          totalProducts: totalProducts[0][0].count,
-          totalOrders: totalOrders[0][0].count,
-          totalRevenue: parseFloat(totalRevenue[0][0].total)
+          totalUsers: totalUsers,
+          totalProducts: totalProducts,
+          totalOrders: totalOrders,
+          totalRevenue: totalRevenue,
+          totalCakesSold: totalCakesSold
         }
       });
     } catch (err) {
@@ -113,99 +130,90 @@ class AdminController {
     try {
       const { page = 1, limit = 50, search = '', role = 'all', sortBy = 'newest' } = req.query;
       
-      // Построение WHERE условий
-      let whereConditions = [];
-      let replacements = {};
+      // Построение условий WHERE для Sequelize
+      const whereConditions = {};
 
       if (search) {
-        whereConditions.push(`(imie ILIKE :search OR nazwisko ILIKE :search OR email ILIKE :search)`);
-        replacements.search = `%${search}%`;
+        whereConditions[Op.or] = [
+          { imie: { [Op.iLike]: `%${search}%` } },
+          { nazwisko: { [Op.iLike]: `%${search}%` } },
+          { email: { [Op.iLike]: `%${search}%` } }
+        ];
       }
 
       if (role !== 'all') {
-        whereConditions.push(`role = :role`);
-        replacements.role = role;
+        whereConditions.role = role;
       }
-
-      const whereClause = whereConditions.length > 0 ? `WHERE ${whereConditions.join(' AND ')}` : '';
 
       // Построение ORDER BY
-      let orderBy = '';
+      let order = [];
       switch (sortBy) {
         case 'newest':
-          orderBy = 'ORDER BY "createdAt" DESC';
+          order = [['createdAt', 'DESC']];
           break;
         case 'oldest':
-          orderBy = 'ORDER BY "createdAt" ASC';
+          order = [['createdAt', 'ASC']];
           break;
         case 'name':
-          orderBy = 'ORDER BY imie ASC';
+          order = [['imie', 'ASC']];
           break;
         case 'email':
-          orderBy = 'ORDER BY email ASC';
+          order = [['email', 'ASC']];
           break;
         default:
-          orderBy = 'ORDER BY "createdAt" DESC';
+          order = [['createdAt', 'DESC']];
       }
 
-      // Получение общего количества
-      const countQuery = `
-        SELECT COUNT(*) as total
-        FROM "Users"
-        ${whereClause}
-      `;
-      const countResult = await sequelize.query(countQuery, {
-        replacements,
-        type: sequelize.QueryTypes.SELECT
-      });
-
       // Получение пользователей с пагинацией
-      const offset = (page - 1) * limit;
-      const usersQuery = `
-        SELECT 
-          user_id as id,
-          imie as name,
-          nazwisko as surname,
-          email,
-          role,
-          "createdAt",
-          "updatedAt"
-        FROM "Users"
-        ${whereClause}
-        ${orderBy}
-        LIMIT :limit OFFSET :offset
-      `;
-
-      const allUsers = await sequelize.query(usersQuery, {
-        replacements: { ...replacements, limit: parseInt(limit), offset: parseInt(offset) },
-        type: sequelize.QueryTypes.SELECT
+      const offset = (parseInt(page) - 1) * parseInt(limit);
+      const { count, rows } = await User.findAndCountAll({
+        where: whereConditions,
+        order: order,
+        limit: parseInt(limit),
+        offset: offset,
+        attributes: ['user_id', 'imie', 'nazwisko', 'email', 'role', 'createdAt', 'updatedAt']
       });
+
+      // Преобразование данных для фронтенда
+      const allUsers = rows.map(user => ({
+        id: user.user_id,
+        name: user.imie,
+        surname: user.nazwisko,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      }));
 
       // Статистика по ролям
-      const roleStats = await sequelize.query(`
-        SELECT 
-          role,
-          COUNT(*) as count
-        FROM "Users"
-        ${whereClause}
-        GROUP BY role
-      `, {
-        replacements,
-        type: sequelize.QueryTypes.SELECT
+      const allUsersForStats = await User.findAll({
+        where: whereConditions,
+        attributes: ['role'],
+        raw: true
       });
+      
+      const roleStatsMap = {};
+      allUsersForStats.forEach(user => {
+        roleStatsMap[user.role] = (roleStatsMap[user.role] || 0) + 1;
+      });
+      
+      const roleStats = Object.keys(roleStatsMap).map(role => ({
+        role,
+        count: roleStatsMap[role]
+      }));
 
       res.json({
         success: true,
         users: allUsers,
         pagination: {
           currentPage: parseInt(page),
-          totalPages: Math.ceil(countResult[0].total / limit),
-          totalUsers: countResult[0].total,
+          totalPages: Math.ceil(count / parseInt(limit)),
+          totalUsers: count,
           limit: parseInt(limit)
         },
         stats: {
-          roleStats,
-          totalUsers: countResult[0].total
+          roleStats: roleStats,
+          totalUsers: count
         }
       });
     } catch (err) {
@@ -219,53 +227,68 @@ class AdminController {
     try {
       const { userId } = req.params;
       
-      const userDetails = await sequelize.query(`
-        SELECT 
-          u.user_id as id,
-          u.imie as name,
-          u.nazwisko as surname,
-          u.email,
-          u.role,
-          u."createdAt",
-          u."updatedAt",
-          COUNT(DISTINCT o.id) as total_orders,
-          COALESCE(SUM(o.total_amount), 0) as total_spent
-        FROM "Users" u
-        LEFT JOIN "Orders" o ON u.user_id = o.user_id
-        WHERE u.user_id = :userId
-        GROUP BY u.user_id, u.imie, u.nazwisko, u.email, u.role, u."createdAt", u."updatedAt"
-      `, {
-        replacements: { userId },
-        type: sequelize.QueryTypes.SELECT
+      // Получить пользователя по ID
+      const user = await User.findByPk(userId, {
+        attributes: ['user_id', 'imie', 'nazwisko', 'email', 'role', 'createdAt', 'updatedAt']
       });
 
-      if (userDetails.length === 0) {
+      if (!user) {
         return res.status(404).json({ success: false, message: 'Użytkownik nie znaleziony' });
       }
 
-      // Получить последние заказы пользователя
-      const recentOrders = await sequelize.query(`
-        SELECT 
-          id,
-          total_amount,
-          status,
-          "createdAt"
-        FROM "Orders"
-        WHERE user_id = :userId
-        ORDER BY "createdAt" DESC
-        LIMIT 5
-      `, {
-        replacements: { userId },
-        type: sequelize.QueryTypes.SELECT
+      // Подсчитать заказы и общую сумму через Sequelize
+      const Order = require("../models/Order");
+      const orders = await Order.findAll({
+        where: { userId: parseInt(userId) },
+        attributes: ['id', 'totalPrice', 'status', 'createdAt']
       });
+
+      const total_orders = orders.length;
+      const total_spent = orders.reduce((sum, order) => sum + (parseFloat(order.totalPrice) || 0), 0);
+
+      // Преобразовать данные пользователя для фронтенда
+      const userData = {
+        id: user.user_id,
+        name: user.imie,
+        surname: user.nazwisko,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        total_orders,
+        total_spent
+      };
 
       res.json({
         success: true,
-        user: userDetails[0],
-        recentOrders
+        user: userData,
+        recentOrders: orders.slice(0, 5).map(order => ({
+          id: order.id,
+          totalPrice: order.totalPrice,
+          status: order.status,
+          createdAt: order.createdAt
+        }))
       });
     } catch (err) {
       console.error('Error fetching user details:', err);
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+
+  // Получить корзину пользователя
+  async getUserCart(req, res) {
+    try {
+      const { userId } = req.params;
+      const cartService = require("../services/cartService");
+      
+      const cartItems = await cartService.getCart(parseInt(userId));
+      
+      res.json({
+        success: true,
+        cart: cartItems
+      });
+    } catch (err) {
+      console.error('Error fetching user cart:', err);
       res.status(500).json({ success: false, message: err.message });
     }
   }
@@ -312,25 +335,18 @@ class AdminController {
       const { userId } = req.params;
 
       // Проверяем, что пользователь существует
-      const user = await sequelize.query(`
-        SELECT user_id as id, role FROM "Users" WHERE user_id = :userId
-      `, {
-        replacements: { userId },
-        type: sequelize.QueryTypes.SELECT
+      const user = await User.findByPk(userId, {
+        attributes: ['user_id', 'role']
       });
 
-      if (user.length === 0) {
+      if (!user) {
         return res.status(404).json({ success: false, message: 'Użytkownik nie znaleziony' });
       }
 
       // Нельзя удалить последнего админа
-      const adminCount = await sequelize.query(`
-        SELECT COUNT(*) as count FROM "Users" WHERE role = 'admin'
-      `, {
-        type: sequelize.QueryTypes.SELECT
-      });
+      const adminCount = await User.count({ where: { role: 'admin' } });
 
-      if (user[0].role === 'admin' && adminCount[0].count <= 1) {
+      if (user.role === 'admin' && adminCount <= 1) {
         return res.status(400).json({ 
           success: false, 
           message: 'Nie można usunąć ostatniego administratora' 
@@ -338,12 +354,7 @@ class AdminController {
       }
 
       // Удаляем пользователя
-      await sequelize.query(`
-        DELETE FROM "Users" WHERE user_id = :userId
-      `, {
-        replacements: { userId },
-        type: sequelize.QueryTypes.DELETE
-      });
+      await user.destroy();
 
       res.json({
         success: true,

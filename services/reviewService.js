@@ -8,6 +8,14 @@ class ReviewService {
     return reviews;
   }
 
+  async getReviewsByUserId(userId) {
+    const reviews = await Review.findAll({
+      where: { user_id: userId },
+      order: [["createdAt", "DESC"]],
+    });
+    return reviews;
+  }
+
   async addReview({ userId, userName, rating, comment }) {
     const review = await Review.create({
       user_id: userId,

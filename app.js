@@ -17,7 +17,12 @@ const port = 5000;
 
 app.use(express.json());
 app.use(cors());
-app.use(generalLimiter);
+
+// Отключаем rate limiting в development режиме
+if (process.env.NODE_ENV !== 'development') {
+  app.use(generalLimiter);
+}
+
 app.use(loggerMiddleware);
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
 

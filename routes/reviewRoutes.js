@@ -5,6 +5,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const { isAdmin } = require("../middleware/authMiddleware");
 
 router.get("/reviews", reviewController.getAllReviews);
+router.get("/reviews/user/:userId", authMiddleware, isAdmin, reviewController.getReviewsByUserId);
 router.post("/reviews", authMiddleware, reviewController.addReview);
 router.delete("/reviews/:id", authMiddleware, isAdmin, reviewController.deleteReview);
 

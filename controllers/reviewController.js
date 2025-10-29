@@ -10,6 +10,16 @@ class ReviewController {
     }
   }
 
+  async getReviewsByUserId(req, res) {
+    try {
+      const { userId } = req.params;
+      const reviews = await reviewService.getReviewsByUserId(userId);
+      res.json({ success: true, reviews });
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+
   async addReview(req, res) {
     try {
       const { rating, comment } = req.body;

@@ -27,6 +27,10 @@ const Review = sequelize.define("Review", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+}, {
+  timestamps: true,
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 });
 
 module.exports = Review;
