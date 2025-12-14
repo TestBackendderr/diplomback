@@ -82,6 +82,78 @@ class OrderService {
       throw new Error("Failed to fetch user orders: " + error.message);
     }
   }
+
+  async getAllOrders() {
+    try {
+      const User = require("../models/User");
+      const orders = await Order.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ["user_id", "imie", "nazwisko", "email"],
+          },
+          {
+            model: OrderItem,
+            include: [
+              {
+                model: Product,
+                attributes: ["id", "name", "opis", "price", "image_url"],
+              },
+            ],
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+      });
+
+      return orders.map((order) => ({
+        id: order.id,
+        userId: order.userId,
+        user: order.User ? {
+          id: order.User.user_id,
+          name: order.User.imie,
+          surname: order.User.nazwisko,
+          email: order.User.email,
+        } : null,
+        address: order.address,
+        paymentMethod: order.paymentMethod,
+        totalPrice: order.totalPrice,
+        status: order.status,
+        createdAt: order.createdAt,
+        items: order.OrderItems.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          price: item.price,
+          product: {
+            id: item.Product.id,
+            name: item.Product.name,
+            description: item.Product.opis,
+            price: item.Product.price,
+            image_url: item.Product.image_url,
+          },
+        })),
+      }));
+    } catch (error) {
+      throw new Error("Failed to fetch all orders: " + error.message);
+    }
+  }
+
+  async updateOrderStatus(orderId, status) {
+    try {
+      const order = await Order.findByPk(orderId);
+      if (!order) {
+        throw new Error("Order not found");
+      }
+      
+      if (!["pending", "completed", "cancelled"].includes(status)) {
+        throw new Error("Invalid status");
+      }
+      
+      await order.update({ status });
+      return order;
+    } catch (error) {
+      throw new Error("Failed to update order status: " + error.message);
+    }
+  }
 }
 
 module.exports = new OrderService();

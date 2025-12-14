@@ -24,10 +24,12 @@ class AdminController {
         OrderItem.findAll({ attributes: ['quantity'] })
       ]);
 
-      // Подсчет выручки от завершенных заказов
+      // Подсчет выручки от всех заказов (можно изменить на только completed)
       const totalRevenue = orders
-        .filter(o => o.status === 'completed')
-        .reduce((sum, order) => sum + (parseFloat(order.totalPrice) || 0), 0);
+        .reduce((sum, order) => {
+          const price = parseFloat(order.totalPrice) || 0;
+          return sum + price;
+        }, 0);
 
       // Подсчет общего количества купленных тортов
       const totalCakesSold = orderItems.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
@@ -293,6 +295,24 @@ class AdminController {
     }
   }
 
+  // Получить заказы пользователя
+  async getUserOrders(req, res) {
+    try {
+      const { userId } = req.params;
+      const orderService = require("../services/orderService");
+      
+      const orders = await orderService.getUserOrders(parseInt(userId));
+      
+      res.json({
+        success: true,
+        orders: orders
+      });
+    } catch (err) {
+      console.error('Error fetching user orders:', err);
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+
   // Обновить роль пользователя
   async updateUserRole(req, res) {
     try {
@@ -362,6 +382,49 @@ class AdminController {
       });
     } catch (err) {
       console.error('Error deleting user:', err);
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+
+  // Получить все заказы всех пользователей
+  async getAllOrders(req, res) {
+    try {
+      const orderService = require("../services/orderService");
+      const orders = await orderService.getAllOrders();
+      
+      res.json({
+        success: true,
+        orders: orders
+      });
+    } catch (err) {
+      console.error('Error fetching all orders:', err);
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+
+  // Обновить статус заказа
+  async updateOrderStatus(req, res) {
+    try {
+      const { orderId } = req.params;
+      const { status } = req.body;
+      
+      if (!status || !["pending", "completed", "cancelled"].includes(status)) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'Nieprawidłowy status. Dozwolone: pending, completed, cancelled' 
+        });
+      }
+
+      const orderService = require("../services/orderService");
+      const order = await orderService.updateOrderStatus(parseInt(orderId), status);
+      
+      res.json({
+        success: true,
+        message: 'Status zamówienia został zaktualizowany',
+        order: order
+      });
+    } catch (err) {
+      console.error('Error updating order status:', err);
       res.status(500).json({ success: false, message: err.message });
     }
   }

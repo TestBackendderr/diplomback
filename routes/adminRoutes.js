@@ -15,7 +15,10 @@ router.get("/users-stats", adminController.getUsersStats);
 router.get("/all-users", adminController.getAllUsers);
 router.get("/user/:userId", adminController.getUserDetails);
 router.get("/user/:userId/cart", adminController.getUserCart);
+router.get("/user/:userId/orders", adminController.getUserOrders);
 router.put("/user/:userId/role", adminController.updateUserRole);
 router.delete("/user/:userId", adminController.deleteUser);
+router.get("/orders", adminController.getAllOrders);
+router.put("/orders/:orderId/status", adminController.updateOrderStatus);
 
 module.exports = router;

@@ -36,6 +36,26 @@ class ProductController {
       res.status(404).json({ success: false, message: err.message });
     }
   }
+
+  async updateProduct(req, res) {
+    try {
+      const { id } = req.params;
+      const { name, opis, price, category } = req.body;
+      const image_url = req.file ? `/uploads/${req.file.filename}` : undefined;
+      
+      const product = await productService.updateProduct(id, {
+        name,
+        opis,
+        price,
+        image_url,
+        category: category || undefined,
+      });
+      
+      res.json({ success: true, product });
+    } catch (err) {
+      res.status(404).json({ success: false, message: err.message });
+    }
+  }
 }
 
 module.exports = new ProductController();

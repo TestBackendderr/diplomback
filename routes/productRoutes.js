@@ -21,6 +21,7 @@ const upload = multer({ storage });
 
 router.get("/cake", productController.getAllProducts);
 router.post("/cake", authMiddleware, isAdmin, upload.single("image"), productController.addProduct);
+router.put("/cake/:id", authMiddleware, isAdmin, upload.single("image"), productController.updateProduct);
 router.delete("/cake/:id", authMiddleware, isAdmin, productController.deleteProduct);
 
 module.exports = router;
